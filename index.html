@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="title" content="Z-Erase: Enabling Concept Erasure in Single-Stream Diffusion Transformers">
+  <meta name="description" content="Z-Erase is the first concept erasure method tailored for single-stream text-to-image diffusion transformers, enabling robust erasure without generation collapse.">
+  <meta name="keywords" content="Z-Erase, concept erasure, diffusion transformers, single-stream models, text-to-image generation, machine unlearning, ICML 2026">
+  <meta name="author" content="Nanxiang Jiang, Zhaoxin Fan, Baisen Wang, Daiheng Gao, Junhang Cheng, Jifeng Guo, Yalan Qin, Yeying Jin, Hongwei Zheng, Faguo Wu, Wenjun Wu">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Z-Erase Project Page">
+  <meta property="og:title" content="Z-Erase: Enabling Concept Erasure in Single-Stream Diffusion Transformers">
+  <meta property="og:description" content="A concept erasure method for single-stream T2I diffusion transformers that disentangles streams and adaptively balances erasure with preservation.">
+  <meta property="og:url" content="https://nxjiang-jnx.github.io/Z-Erase-web/">
+  <meta property="og:image" content="https://nxjiang-jnx.github.io/Z-Erase-web/static/images/social_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Z-Erase research preview">
+  <meta property="article:published_time" content="2026-03-01T00:00:00.000Z">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Concept Erasure">
+  <meta property="article:tag" content="Diffusion Transformers">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Z-Erase: Enabling Concept Erasure in Single-Stream Diffusion Transformers">
+  <meta name="twitter:description" content="Concept erasure for single-stream T2I diffusion transformers without generation collapse.">
+  <meta name="twitter:image" content="https://nxjiang-jnx.github.io/Z-Erase-web/static/images/social_preview.png">
+  <meta name="twitter:image:alt" content="Z-Erase research preview">
+
+  <meta name="citation_title" content="Z-Erase: Enabling Concept Erasure in Single-Stream Diffusion Transformers">
+  <meta name="citation_author" content="Jiang, Nanxiang">
+  <meta name="citation_author" content="Fan, Zhaoxin">
+  <meta name="citation_author" content="Wang, Baisen">
+  <meta name="citation_author" content="Gao, Daiheng">
+  <meta name="citation_author" content="Cheng, Junhang">
+  <meta name="citation_author" content="Guo, Jifeng">
+  <meta name="citation_author" content="Qin, Yalan">
+  <meta name="citation_author" content="Jin, Yeying">
+  <meta name="citation_author" content="Zheng, Hongwei">
+  <meta name="citation_author" content="Wu, Faguo">
+  <meta name="citation_author" content="Wu, Wenjun">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="Forty-Third International Conference on Machine Learning">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2603.25074">
+
+  <meta name="theme-color" content="#0f766e">
+  <meta name="msapplication-TileColor" content="#0f766e">
+
+  <title>Z-Erase | ICML 2026</title>
+
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Z-Erase: Enabling Concept Erasure in Single-Stream Diffusion Transformers",
+    "description": "Z-Erase is a concept erasure method tailored for single-stream text-to-image diffusion transformers.",
+    "author": [
+      {"@type": "Person", "name": "Nanxiang Jiang", "url": "https://nxjiang-jnx.github.io/"},
+      {"@type": "Person", "name": "Zhaoxin Fan", "url": "https://zhaoxinf.github.io/"},
+      {"@type": "Person", "name": "Baisen Wang", "url": "https://github.com/wbs2788"},
+      {"@type": "Person", "name": "Daiheng Gao", "url": "https://tomguluson92.github.io/"},
+      {"@type": "Person", "name": "Junhang Cheng", "url": "https://cjhcoder7.github.io/"},
+      {"@type": "Person", "name": "Jifeng Guo", "url": "https://openreview.net/profile?id=~Jifeng_Guo1"},
+      {"@type": "Person", "name": "Yalan Qin", "url": "https://openreview.net/profile?id=~Yalan_Qin1"},
+      {"@type": "Person", "name": "Yeying Jin", "url": "https://jinyeying.github.io/"},
+      {"@type": "Person", "name": "Hongwei Zheng", "url": "https://openreview.net/profile?id=~Hongwei_Zheng4"},
+      {"@type": "Person", "name": "Faguo Wu", "url": "https://openreview.net/profile?id=~Faguo_Wu1"},
+      {"@type": "Person", "name": "Wenjun Wu", "url": "https://iai.buaa.edu.cn/info/1013/1093.htm"}
+    ],
+    "datePublished": "2026",
+    "publisher": {"@type": "Organization", "name": "International Conference on Machine Learning"},
+    "url": "https://nxjiang-jnx.github.io/Z-Erase-web/",
+    "image": "https://nxjiang-jnx.github.io/Z-Erase-web/static/images/social_preview.png",
+    "keywords": ["concept erasure", "single-stream diffusion transformer", "text-to-image generation", "machine unlearning"],
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+  <button class="scroll-to-top" type="button" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <nav class="top-nav" aria-label="Project navigation">
+    <a class="brand" href="#top" aria-label="Z-Erase home">Z-Erase</a>
+    <div class="nav-links">
+      <a href="#motivation">Motivation</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#citation">Citation</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero-section">
+      <div class="container is-max-widescreen hero-grid">
+        <div class="hero-copy">
+          <div class="venue-row">
+            <span class="venue-pill">ICML 2026</span>
+            <span class="venue-note">Single-Stream T2I Safety</span>
+          </div>
+          <h1>Z-Erase</h1>
+          <p class="paper-title">Enabling Concept Erasure in Single-Stream Diffusion Transformers</p>
+          <p class="hero-subtitle">
+            A dedicated erasure framework for Z-Image-style single-stream transformers: remove unwanted concepts while keeping the visual backbone intact.
+          </p>
+
+          <div class="publication-authors">
+            <span class="author-block"><a href="https://nxjiang-jnx.github.io/" target="_blank" rel="noopener">Nanxiang Jiang</a></span>
+            <span class="author-block"><a href="https://zhaoxinf.github.io/" target="_blank" rel="noopener">Zhaoxin Fan</a></span>
+            <span class="author-block"><a href="https://github.com/wbs2788" target="_blank" rel="noopener">Baisen Wang</a></span>
+            <span class="author-block"><a href="https://tomguluson92.github.io/" target="_blank" rel="noopener">Daiheng Gao</a></span>
+            <span class="author-block"><a href="https://cjhcoder7.github.io/" target="_blank" rel="noopener">Junhang Cheng</a></span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~Jifeng_Guo1" target="_blank" rel="noopener">Jifeng Guo</a></span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~Yalan_Qin1" target="_blank" rel="noopener">Yalan Qin</a></span>
+            <span class="author-block"><a href="https://jinyeying.github.io/" target="_blank" rel="noopener">Yeying Jin</a></span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~Hongwei_Zheng4" target="_blank" rel="noopener">Hongwei Zheng</a></span>
+            <span class="author-block"><a href="https://openreview.net/profile?id=~Faguo_Wu1" target="_blank" rel="noopener">Faguo Wu</a></span>
+            <span class="author-block"><a href="https://iai.buaa.edu.cn/info/1013/1093.htm" target="_blank" rel="noopener">Wenjun Wu</a></span>
+          </div>
+
+          <p class="affiliations">
+            Beihang University · University of Science and Technology of China · Shanghai University · Tencent · Beijing Academy of Blockchain and Edge Computing
+          </p>
+
+          <div class="publication-links" aria-label="Paper links">
+            <a class="button is-dark project-button" href="https://arxiv.org/pdf/2603.25074" target="_blank" rel="noopener">
+              <span class="icon"><i class="fas fa-file-pdf" aria-hidden="true"></i></span>
+              <span>Paper</span>
+            </a>
+            <a class="button is-dark project-button" href="https://arxiv.org/abs/2603.25074" target="_blank" rel="noopener">
+              <span class="icon"><i class="fas fa-scroll" aria-hidden="true"></i></span>
+              <span>arXiv</span>
+            </a>
+            <a class="button is-dark project-button" href="https://github.com/nxjiang-jnx/Z-Erase" target="_blank" rel="noopener">
+              <span class="icon"><i class="fab fa-github" aria-hidden="true"></i></span>
+              <span>Code</span>
+            </a>
+            <a class="button is-dark project-button" href="#citation">
+              <span class="icon"><i class="fas fa-quote-right" aria-hidden="true"></i></span>
+              <span>BibTeX</span>
+            </a>
+          </div>
+        </div>
+
+        <figure class="hero-visual">
+          <img src="static/images/webp/teaser-crop.webp" alt="Z-Erase compared with prior methods on concept erasure examples" fetchpriority="high">
+          <figcaption>
+            Z-Erase removes target concepts while preserving image quality. Sensitive regions are pixelated in the original paper figure.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-band quiet" id="motivation">
+      <div class="container is-max-desktop narrative">
+        <p class="section-kicker">Motivation</p>
+        <h2>Why single-stream models need a new erasure recipe</h2>
+        <p>
+          Recent T2I systems such as Z-Image process text and image tokens as one unified sequence. That design is efficient, but it removes the clean cross-attention handle used by earlier concept erasure methods.
+        </p>
+        <p>
+          The paper finds that naive fine-tuning of shared self-attention projections consistently damages the image pathway, producing noisy collapse instead of controlled erasure. Token-level attention suppression can work in toy cases, but small prompt perturbations quickly bypass it.
+        </p>
+      </div>
+
+      <div class="container is-max-widescreen figure-row">
+        <figure class="wide-figure">
+          <img src="static/images/webp/token_zeroing-crop.webp" alt="Token zeroing can erase localized concepts but is brittle under prompt variation">
+          <figcaption>Attention intervention is revealing but brittle: changing the prompt spelling can bring the concept back.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-band" id="method">
+      <div class="container is-max-widescreen">
+        <div class="section-heading">
+          <p class="section-kicker">Method</p>
+          <h2>Two safeguards, one stable erasure path</h2>
+        </div>
+
+        <div class="method-grid">
+          <article class="method-item">
+            <span class="step-number">01</span>
+            <h3>Disentangle the stream before learning</h3>
+            <p>
+              Z-Erase freezes the visual processing route and injects low-rank updates only into textual hidden states. The resulting subspace lets erasure gradients target concepts without rewriting the image synthesis backbone.
+            </p>
+          </article>
+          <article class="method-item">
+            <span class="step-number">02</span>
+            <h3>Adapt erasure strength under a preservation constraint</h3>
+            <p>
+              A Lagrangian-guided modulation loop increases erasure only when preservation stays within a tolerance. The dynamic weight acts as a gatekeeper between removing a concept and keeping normal generation useful.
+            </p>
+          </article>
+        </div>
+
+        <div class="two-figures">
+          <figure class="paper-figure">
+            <img src="static/images/webp/architecture-crop.webp" alt="Single-stream transformer architecture in Z-Image">
+            <figcaption>Single-stream transformer: text and image tokens share self-attention projections.</figcaption>
+          </figure>
+          <figure class="paper-figure">
+            <img src="static/images/webp/balance_optimization-crop.webp" alt="Gradient balancing between erasure and preservation">
+            <figcaption>Adaptive modulation steers the erasure update when preservation would be harmed.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band contrast" id="results">
+      <div class="container is-max-widescreen">
+        <div class="section-heading">
+          <p class="section-kicker">Results</p>
+          <h2>Cleaner erasure with less collateral damage</h2>
+          <p>
+            On Z-Image Turbo, Z-Erase is evaluated across NSFW, celebrity identity, entity, artistic style, abstraction, multi-concept erasure, user study, and adversarial prompt attacks.
+          </p>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric">
+            <span class="metric-value">649 &rarr; 161</span>
+            <span class="metric-label">Detected nudity on I2P prompts</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">1086 &rarr; 324</span>
+            <span class="metric-label">Detected violence, best among compared methods</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">26.46 / 31.25</span>
+            <span class="metric-label">FID / CLIP on MS-COCO after nudity erasure</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">H<sub>a</sub> 4.82</span>
+            <span class="metric-label">Best celebrity erasure balance score</span>
+          </div>
+        </div>
+
+        <figure class="results-figure">
+          <img src="static/images/webp/main_cmp-crop.webp" alt="Qualitative comparison between Z-Image Turbo, UCE, EraseAnything, and Z-Erase">
+          <figcaption>
+            Across concrete objects, styles, abstract attributes, and identities, Z-Erase avoids the artifacts and semantic drift seen in prior adaptations.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-band">
+      <div class="container is-max-widescreen">
+        <div class="section-heading compact">
+          <p class="section-kicker">Evidence</p>
+          <h2>Robustness, scale, and human preference</h2>
+        </div>
+
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="static/images/webp/multi_concept_erasure-crop.webp" alt="Multi-concept erasure examples with weighted LoRA averaging" loading="lazy">
+            <figcaption>Multiple concepts can be erased together through weighted LoRA averaging.</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="static/images/webp/user_study-crop.webp" alt="User study radar chart comparing erasure methods" loading="lazy">
+            <figcaption>In a five-dimensional user study, Z-Erase receives the strongest overall human preference.</figcaption>
+          </figure>
+          <figure class="gallery-item">
+            <img src="static/images/webp/ablation_study_hyber-crop.webp" alt="Ablation study on epsilon and beta hyperparameters" loading="lazy">
+            <figcaption>The preservation tolerance controls the erasure-preservation trade-off in a monotonic, interpretable way.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-band quiet">
+      <div class="container is-max-desktop narrative">
+        <p class="section-kicker">Abstract</p>
+        <h2>In brief</h2>
+        <p>
+          Concept erasure removes unwanted concepts from text-to-image models without retraining from scratch. Z-Erase targets the newer single-stream diffusion transformer paradigm, where text and image tokens share the same transformer pathway and existing methods can collapse generation.
+        </p>
+        <p>
+          The method combines a stream-disentangled LoRA update space with a Lagrangian-guided adaptive objective, then proves convergence toward a Pareto stationary point. Experiments show state-of-the-art balance across safety erasure, image quality, robustness, and human evaluation.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-band" id="citation">
+      <div class="container is-max-desktop">
+        <div class="bibtex-header">
+          <div>
+            <p class="section-kicker">Citation</p>
+            <h2>BibTeX</h2>
+          </div>
+          <button class="copy-bibtex-btn" type="button" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+            <i class="fas fa-copy" aria-hidden="true"></i>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <pre id="bibtex-code"><code>@article{jiang2026zerase,
+  title={Z-Erase: Enabling Concept Erasure in Single-Stream Diffusion Transformers},
+  author={Nanxiang Jiang and Zhaoxin Fan and Baisen Wang and Daiheng Gao and Junhang Cheng and Jifeng Guo and Yalan Qin and Yeying Jin and Hongwei Zheng and Faguo Wu and Wenjun Wu},
+  journal={Forty-Third International Conference on Machine Learning},
+  year={2026}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container is-max-desktop">
+      <p>
+        This project page uses the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>, adapted from the <a href="https://nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> project page.
+      </p>
+      <p>
+        Paper code: <a href="https://github.com/nxjiang-jnx/Z-Erase" target="_blank" rel="noopener">github.com/nxjiang-jnx/Z-Erase</a>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

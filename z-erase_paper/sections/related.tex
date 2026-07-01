@@ -1,0 +1,13 @@
+\section{Related Work}
+
+
+% 1223
+\textbf{Generative diffusion and flow transformers.}
+The evolution of generative models has progressed rapidly, moving from the foundational U-Net~\cite{unet} architectures of DDPM~\cite{ddpm} and DDIM~\cite{ddim} to the scalable era of Diffusion Transformers (DiTs)~\cite{DiT} and flow matching~\cite{flowmatching}. Dominant T2I models (\textit{e.g.}, Flux~\cite{flux1kontext}, SD3~\cite{sd3}, LongCat~\cite{LongCat}) establish the standard by using dual-stream architectures, which process text and visual data separately before fusing them for image generation. Recently, however, Z-Image~\cite{zimage} has broken this standard by introducing a pure single-stream paradigm. By concatenating text and image tokens at the sequence level to serve as a unified input stream, Z-Image achieves strong performance with remarkable efficiency: ranking among the top open-source models in recent ELO leaderboards with only 6B parameters. Recognizing this shift, we conduct our main experiments on Z-Image to study concept erasure and safety in the next generation of foundational models.
+
+
+
+\textbf{Concept erasure.}
+As generative models improve, safety concerns become increasingly important. Concept erasure offers a practical way to mitigate risks like NSFW content and copyright infringement, serving as a more efficient alternative to pre-training filtering~\cite{sd} or post-generation filtering~\cite{rando2022red}. The field matures rapidly on noise-prediction U-Nets. For example, AC~\cite{ca} and ESD~\cite{esd} fine-tune cross-attention modules by aligning predicted noise via MSE. FMN~\cite{FMN} minimizes attention activations associated with target concept text tokens. UCE~\cite{uce} solves a closed-form optimization of the text projection matrix. MACE~\cite{lu2024mace} scales the capability to handle multiple concepts simultaneously. Subsequent works~\cite{eap, eupmu, kim2025surveyconcepterasure} leverage LoRA and adversarial training to improve erasure efficiency while balancing irrelevant concept preservation. 
+Recently works like EraseAnything~\cite{eraseanything} and MCE~\cite{mce} successfully adapt concept erasure to Flux, tuning the separate prompt branches within its dual-stream structure. 
+However, these methods cannot be directly applied to pure single-stream models like Z-Image, which differ fundamentally in architecture and generation dynamics. In this work, we identify the critical obstacles in adapting concept erasure to this unified paradigm and propose the first effective erasure method designed for single-stream transformers.

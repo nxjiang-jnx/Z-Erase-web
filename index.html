@@ -166,19 +166,24 @@
     </section>
 
     <section class="section-band quiet" id="motivation">
-      <div class="container is-max-desktop narrative">
-        <p class="section-kicker">Motivation</p>
-        <h2>Why single-stream models need a new erasure recipe</h2>
-        <p>
-          Recent T2I systems such as Z-Image process text and image tokens as one unified sequence. That design is efficient, but it removes the clean cross-attention handle used by earlier concept erasure methods.
-        </p>
-        <p>
-          The paper finds that naive fine-tuning of shared self-attention projections consistently damages the image pathway, producing noisy collapse instead of controlled erasure. Token-level attention suppression can work in toy cases, but small prompt perturbations quickly bypass it.
-        </p>
-      </div>
+      <div class="container is-max-widescreen motivation-layout">
+        <div class="motivation-copy">
+          <p class="section-kicker">Motivation</p>
+          <h2>Why single-stream models need a new erasure recipe</h2>
+          <p>
+            Recent T2I systems such as Z-Image process text and image tokens as one unified sequence. That design is efficient, but it removes the clean cross-attention handle used by earlier concept erasure methods.
+          </p>
+          <p>
+            The paper finds that naive fine-tuning of shared self-attention projections consistently damages the image pathway, producing noisy collapse instead of controlled erasure. Token-level attention suppression can work in toy cases, but small prompt perturbations quickly bypass it.
+          </p>
+          <div class="insight-list" aria-label="Motivation highlights">
+            <span>No cross-attention handle</span>
+            <span>Shared projections collapse generation</span>
+            <span>Prompt perturbations bypass token tricks</span>
+          </div>
+        </div>
 
-      <div class="container is-max-widescreen figure-row">
-        <figure class="wide-figure">
+        <figure class="wide-figure motivation-figure">
           <img src="static/images/webp/token_zeroing-crop.webp" alt="Token zeroing can erase localized concepts but is brittle under prompt variation">
           <figcaption>Attention intervention is revealing but brittle: changing the prompt spelling can bring the concept back.</figcaption>
         </figure>
@@ -232,31 +237,38 @@
           </p>
         </div>
 
-        <div class="metric-grid">
-          <div class="metric">
-            <span class="metric-value">649 &rarr; 161</span>
-            <span class="metric-label">Detected nudity on I2P prompts</span>
-          </div>
-          <div class="metric">
-            <span class="metric-value">1086 &rarr; 324</span>
-            <span class="metric-label">Detected violence, best among compared methods</span>
-          </div>
-          <div class="metric">
-            <span class="metric-value">26.46 / 31.25</span>
-            <span class="metric-label">FID / CLIP on MS-COCO after nudity erasure</span>
-          </div>
-          <div class="metric">
-            <span class="metric-value">H<sub>a</sub> 4.82</span>
-            <span class="metric-label">Best celebrity erasure balance score</span>
+        <div class="results-layout">
+          <figure class="results-figure">
+            <img src="static/images/webp/main_cmp-crop.webp" alt="Qualitative comparison between Z-Image Turbo, UCE, EraseAnything, and Z-Erase">
+            <figcaption>
+              Across concrete objects, styles, abstract attributes, and identities, Z-Erase avoids the artifacts and semantic drift seen in prior adaptations.
+            </figcaption>
+          </figure>
+
+          <div class="results-panel">
+            <div class="metric-grid">
+              <div class="metric">
+                <span class="metric-value">649 &rarr; 161</span>
+                <span class="metric-label">Detected nudity on I2P prompts</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">1086 &rarr; 324</span>
+                <span class="metric-label">Detected violence, best among compared methods</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">26.46 / 31.25</span>
+                <span class="metric-label">FID / CLIP on MS-COCO after nudity erasure</span>
+              </div>
+              <div class="metric">
+                <span class="metric-value">H<sub>a</sub> 4.82</span>
+                <span class="metric-label">Best celebrity erasure balance score</span>
+              </div>
+            </div>
+            <p class="results-note">
+              The comparison captures the core trade-off: aggressive erasure often introduces artifacts, while conservative updates can leave the target concept intact.
+            </p>
           </div>
         </div>
-
-        <figure class="results-figure">
-          <img src="static/images/webp/main_cmp-crop.webp" alt="Qualitative comparison between Z-Image Turbo, UCE, EraseAnything, and Z-Erase">
-          <figcaption>
-            Across concrete objects, styles, abstract attributes, and identities, Z-Erase avoids the artifacts and semantic drift seen in prior adaptations.
-          </figcaption>
-        </figure>
       </div>
     </section>
 
